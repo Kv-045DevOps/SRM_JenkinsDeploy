@@ -1,0 +1,243 @@
+Will create resources:
+  AutoscalingGroup/master-eu-central-1a.masters.terraform.cluster.k8s.local
+  	MinSize             	1
+  	MaxSize             	1
+  	Subnets             	[name:eu-central-1a.terraform.cluster.k8s.local]
+  	Tags                	{Name: master-eu-central-1a.masters.terraform.cluster.k8s.local, KubernetesCluster: terraform.cluster.k8s.local, k8s.io/cluster-autoscaler/node-template/label/kops.k8s.io/instancegroup: master-eu-central-1a, k8s.io/role/master: 1}
+  	Granularity         	1Minute
+  	Metrics             	[GroupDesiredCapacity, GroupInServiceInstances, GroupMaxSize, GroupMinSize, GroupPendingInstances, GroupStandbyInstances, GroupTerminatingInstances, GroupTotalInstances]
+  	LaunchConfiguration 	name:master-eu-central-1a.masters.terraform.cluster.k8s.local
+  	SuspendProcesses    	[]
+
+  AutoscalingGroup/nodes.terraform.cluster.k8s.local
+  	MinSize             	1
+  	MaxSize             	1
+  	Subnets             	[name:eu-central-1a.terraform.cluster.k8s.local]
+  	Tags                	{k8s.io/cluster-autoscaler/node-template/label/kops.k8s.io/instancegroup: nodes, k8s.io/role/node: 1, Name: nodes.terraform.cluster.k8s.local, KubernetesCluster: terraform.cluster.k8s.local}
+  	Granularity         	1Minute
+  	Metrics             	[GroupDesiredCapacity, GroupInServiceInstances, GroupMaxSize, GroupMinSize, GroupPendingInstances, GroupStandbyInstances, GroupTerminatingInstances, GroupTotalInstances]
+  	LaunchConfiguration 	name:nodes.terraform.cluster.k8s.local
+  	SuspendProcesses    	[]
+
+  DHCPOptions/terraform.cluster.k8s.local
+  	DomainName          	eu-central-1.compute.internal
+  	DomainNameServers   	AmazonProvidedDNS
+  	Shared              	false
+  	Tags                	{Name: terraform.cluster.k8s.local, KubernetesCluster: terraform.cluster.k8s.local, kubernetes.io/cluster/terraform.cluster.k8s.local: owned}
+
+  EBSVolume/a.etcd-events.terraform.cluster.k8s.local
+  	AvailabilityZone    	eu-central-1a
+  	VolumeType          	gp2
+  	SizeGB              	20
+  	Encrypted           	false
+  	Tags                	{k8s.io/etcd/events: a/a, k8s.io/role/master: 1, kubernetes.io/cluster/terraform.cluster.k8s.local: owned, Name: a.etcd-events.terraform.cluster.k8s.local, KubernetesCluster: terraform.cluster.k8s.local}
+
+  EBSVolume/a.etcd-main.terraform.cluster.k8s.local
+  	AvailabilityZone    	eu-central-1a
+  	VolumeType          	gp2
+  	SizeGB              	20
+  	Encrypted           	false
+  	Tags                	{k8s.io/etcd/main: a/a, k8s.io/role/master: 1, kubernetes.io/cluster/terraform.cluster.k8s.local: owned, Name: a.etcd-main.terraform.cluster.k8s.local, KubernetesCluster: terraform.cluster.k8s.local}
+
+  IAMInstanceProfile/masters.terraform.cluster.k8s.local
+  	Shared              	false
+
+  IAMInstanceProfile/nodes.terraform.cluster.k8s.local
+  	Shared              	false
+
+  IAMInstanceProfileRole/masters.terraform.cluster.k8s.local
+  	InstanceProfile     	name:masters.terraform.cluster.k8s.local id:masters.terraform.cluster.k8s.local
+  	Role                	name:masters.terraform.cluster.k8s.local
+
+  IAMInstanceProfileRole/nodes.terraform.cluster.k8s.local
+  	InstanceProfile     	name:nodes.terraform.cluster.k8s.local id:nodes.terraform.cluster.k8s.local
+  	Role                	name:nodes.terraform.cluster.k8s.local
+
+  IAMRole/masters.terraform.cluster.k8s.local
+  	ExportWithID        	masters
+
+  IAMRole/nodes.terraform.cluster.k8s.local
+  	ExportWithID        	nodes
+
+  IAMRolePolicy/masters.terraform.cluster.k8s.local
+  	Role                	name:masters.terraform.cluster.k8s.local
+
+  IAMRolePolicy/nodes.terraform.cluster.k8s.local
+  	Role                	name:nodes.terraform.cluster.k8s.local
+
+  InternetGateway/terraform.cluster.k8s.local
+  	VPC                 	name:terraform.cluster.k8s.local
+  	Shared              	false
+  	Tags                	{Name: terraform.cluster.k8s.local, KubernetesCluster: terraform.cluster.k8s.local, kubernetes.io/cluster/terraform.cluster.k8s.local: owned}
+
+  LaunchConfiguration/master-eu-central-1a.masters.terraform.cluster.k8s.local
+  	ImageID             	kope.io/k8s-1.11-debian-stretch-amd64-hvm-ebs-2018-08-17
+  	InstanceType        	t2.micro
+  	SSHKey              	name:kubernetes.terraform.cluster.k8s.local-6d:98:7b:18:cd:ed:a2:b3:17:fa:fd:ac:61:f0:7c:27 id:kubernetes.terraform.cluster.k8s.local-6d:98:7b:18:cd:ed:a2:b3:17:fa:fd:ac:61:f0:7c:27
+  	SecurityGroups      	[name:masters.terraform.cluster.k8s.local]
+  	AssociatePublicIP   	true
+  	IAMInstanceProfile  	name:masters.terraform.cluster.k8s.local id:masters.terraform.cluster.k8s.local
+  	RootVolumeSize      	8
+  	RootVolumeType      	gp2
+  	SpotPrice           	
+
+  LaunchConfiguration/nodes.terraform.cluster.k8s.local
+  	ImageID             	kope.io/k8s-1.11-debian-stretch-amd64-hvm-ebs-2018-08-17
+  	InstanceType        	t2.micro
+  	SSHKey              	name:kubernetes.terraform.cluster.k8s.local-6d:98:7b:18:cd:ed:a2:b3:17:fa:fd:ac:61:f0:7c:27 id:kubernetes.terraform.cluster.k8s.local-6d:98:7b:18:cd:ed:a2:b3:17:fa:fd:ac:61:f0:7c:27
+  	SecurityGroups      	[name:nodes.terraform.cluster.k8s.local]
+  	AssociatePublicIP   	true
+  	IAMInstanceProfile  	name:nodes.terraform.cluster.k8s.local id:nodes.terraform.cluster.k8s.local
+  	RootVolumeSize      	8
+  	RootVolumeType      	gp2
+  	SpotPrice           	
+
+  LoadBalancer/api.terraform.cluster.k8s.local
+  	LoadBalancerName    	api-terraform-cluster-k8s-c9lhma
+  	Subnets             	[name:eu-central-1a.terraform.cluster.k8s.local]
+  	SecurityGroups      	[name:api-elb.terraform.cluster.k8s.local]
+  	Listeners           	{443: {"InstancePort":443,"SSLCertificateID":""}}
+  	HealthCheck         	{"Target":"SSL:443","HealthyThreshold":2,"UnhealthyThreshold":2,"Interval":10,"Timeout":5}
+  	ConnectionSettings  	{"IdleTimeout":300}
+  	SSLCertificateID    	
+
+  LoadBalancerAttachment/api-master-eu-central-1a
+  	LoadBalancer        	name:api.terraform.cluster.k8s.local id:api.terraform.cluster.k8s.local
+  	AutoscalingGroup    	name:master-eu-central-1a.masters.terraform.cluster.k8s.local id:master-eu-central-1a.masters.terraform.cluster.k8s.local
+
+  Route/0.0.0.0/0
+  	RouteTable          	name:terraform.cluster.k8s.local
+  	CIDR                	0.0.0.0/0
+  	InternetGateway     	name:terraform.cluster.k8s.local
+
+  RouteTable/terraform.cluster.k8s.local
+  	VPC                 	name:terraform.cluster.k8s.local
+  	Shared              	false
+  	Tags                	{Name: terraform.cluster.k8s.local, KubernetesCluster: terraform.cluster.k8s.local, kubernetes.io/cluster/terraform.cluster.k8s.local: owned, kubernetes.io/kops/role: public}
+
+  RouteTableAssociation/eu-central-1a.terraform.cluster.k8s.local
+  	RouteTable          	name:terraform.cluster.k8s.local
+  	Subnet              	name:eu-central-1a.terraform.cluster.k8s.local
+
+  SSHKey/kubernetes.terraform.cluster.k8s.local-6d:98:7b:18:cd:ed:a2:b3:17:fa:fd:ac:61:f0:7c:27
+  	KeyFingerprint      	56:d5:ab:c4:17:0b:70:45:15:34:6f:d5:f0:37:b6:78
+
+  SecurityGroup/api-elb.terraform.cluster.k8s.local
+  	Description         	Security group for api ELB
+  	VPC                 	name:terraform.cluster.k8s.local
+  	RemoveExtraRules    	[port=443]
+  	Tags                	{Name: api-elb.terraform.cluster.k8s.local, KubernetesCluster: terraform.cluster.k8s.local, kubernetes.io/cluster/terraform.cluster.k8s.local: owned}
+
+  SecurityGroup/masters.terraform.cluster.k8s.local
+  	Description         	Security group for masters
+  	VPC                 	name:terraform.cluster.k8s.local
+  	RemoveExtraRules    	[port=22, port=443, port=2380, port=2381, port=4001, port=4002, port=4789, port=179]
+  	Tags                	{KubernetesCluster: terraform.cluster.k8s.local, kubernetes.io/cluster/terraform.cluster.k8s.local: owned, Name: masters.terraform.cluster.k8s.local}
+
+  SecurityGroup/nodes.terraform.cluster.k8s.local
+  	Description         	Security group for nodes
+  	VPC                 	name:terraform.cluster.k8s.local
+  	RemoveExtraRules    	[port=22]
+  	Tags                	{kubernetes.io/cluster/terraform.cluster.k8s.local: owned, Name: nodes.terraform.cluster.k8s.local, KubernetesCluster: terraform.cluster.k8s.local}
+
+  SecurityGroupRule/all-master-to-master
+  	SecurityGroup       	name:masters.terraform.cluster.k8s.local
+  	SourceGroup         	name:masters.terraform.cluster.k8s.local
+
+  SecurityGroupRule/all-master-to-node
+  	SecurityGroup       	name:nodes.terraform.cluster.k8s.local
+  	SourceGroup         	name:masters.terraform.cluster.k8s.local
+
+  SecurityGroupRule/all-node-to-node
+  	SecurityGroup       	name:nodes.terraform.cluster.k8s.local
+  	SourceGroup         	name:nodes.terraform.cluster.k8s.local
+
+  SecurityGroupRule/api-elb-egress
+  	SecurityGroup       	name:api-elb.terraform.cluster.k8s.local
+  	CIDR                	0.0.0.0/0
+  	Egress              	true
+
+  SecurityGroupRule/https-api-elb-0.0.0.0/0
+  	SecurityGroup       	name:api-elb.terraform.cluster.k8s.local
+  	CIDR                	0.0.0.0/0
+  	Protocol            	tcp
+  	FromPort            	443
+  	ToPort              	443
+
+  SecurityGroupRule/https-elb-to-master
+  	SecurityGroup       	name:masters.terraform.cluster.k8s.local
+  	Protocol            	tcp
+  	FromPort            	443
+  	ToPort              	443
+  	SourceGroup         	name:api-elb.terraform.cluster.k8s.local
+
+  SecurityGroupRule/master-egress
+  	SecurityGroup       	name:masters.terraform.cluster.k8s.local
+  	CIDR                	0.0.0.0/0
+  	Egress              	true
+
+  SecurityGroupRule/node-egress
+  	SecurityGroup       	name:nodes.terraform.cluster.k8s.local
+  	CIDR                	0.0.0.0/0
+  	Egress              	true
+
+  SecurityGroupRule/node-to-master-tcp-1-2379
+  	SecurityGroup       	name:masters.terraform.cluster.k8s.local
+  	Protocol            	tcp
+  	FromPort            	1
+  	ToPort              	2379
+  	SourceGroup         	name:nodes.terraform.cluster.k8s.local
+
+  SecurityGroupRule/node-to-master-tcp-2382-4000
+  	SecurityGroup       	name:masters.terraform.cluster.k8s.local
+  	Protocol            	tcp
+  	FromPort            	2382
+  	ToPort              	4000
+  	SourceGroup         	name:nodes.terraform.cluster.k8s.local
+
+  SecurityGroupRule/node-to-master-tcp-4003-65535
+  	SecurityGroup       	name:masters.terraform.cluster.k8s.local
+  	Protocol            	tcp
+  	FromPort            	4003
+  	ToPort              	65535
+  	SourceGroup         	name:nodes.terraform.cluster.k8s.local
+
+  SecurityGroupRule/node-to-master-udp-1-65535
+  	SecurityGroup       	name:masters.terraform.cluster.k8s.local
+  	Protocol            	udp
+  	FromPort            	1
+  	ToPort              	65535
+  	SourceGroup         	name:nodes.terraform.cluster.k8s.local
+
+  SecurityGroupRule/ssh-external-to-master-0.0.0.0/0
+  	SecurityGroup       	name:masters.terraform.cluster.k8s.local
+  	CIDR                	0.0.0.0/0
+  	Protocol            	tcp
+  	FromPort            	22
+  	ToPort              	22
+
+  SecurityGroupRule/ssh-external-to-node-0.0.0.0/0
+  	SecurityGroup       	name:nodes.terraform.cluster.k8s.local
+  	CIDR                	0.0.0.0/0
+  	Protocol            	tcp
+  	FromPort            	22
+  	ToPort              	22
+
+  Subnet/eu-central-1a.terraform.cluster.k8s.local
+  	ShortName           	eu-central-1a
+  	VPC                 	name:terraform.cluster.k8s.local
+  	AvailabilityZone    	eu-central-1a
+  	CIDR                	172.20.32.0/19
+  	Shared              	false
+  	Tags                	{Name: eu-central-1a.terraform.cluster.k8s.local, KubernetesCluster: terraform.cluster.k8s.local, kubernetes.io/cluster/terraform.cluster.k8s.local: owned, SubnetType: Public, kubernetes.io/role/elb: 1}
+
+  VPC/terraform.cluster.k8s.local
+  	CIDR                	172.20.0.0/16
+  	EnableDNSHostnames  	true
+  	EnableDNSSupport    	true
+  	Shared              	false
+  	Tags                	{kubernetes.io/cluster/terraform.cluster.k8s.local: owned, Name: terraform.cluster.k8s.local, KubernetesCluster: terraform.cluster.k8s.local}
+
+  VPCDHCPOptionsAssociation/terraform.cluster.k8s.local
+  	VPC                 	name:terraform.cluster.k8s.local
+  	DHCPOptions         	name:terraform.cluster.k8s.local
