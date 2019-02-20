@@ -1,5 +1,5 @@
 variable "cluster-name" {
-    default = "cluster"
+    default = "terraform-way"
 }
 
 variable "masters_count" {
@@ -10,5 +10,5 @@ variable "nodes_count" {
 }
 
 variable "key_name" {
-    default = "andrew"
+    default = "andrew_2"
 }
