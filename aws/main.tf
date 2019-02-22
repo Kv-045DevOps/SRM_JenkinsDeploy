@@ -86,7 +86,7 @@ resource "aws_security_group" "Kubernetes-security-group" {
 
   ingress {
     from_port       = 0
-    to_port         = 0
+    to_port         = -1
     protocol        = "icmp"
     cidr_blocks     = ["0.0.0.0/0"]
   }
@@ -140,9 +140,9 @@ resource "aws_eip" "lb" {
 resource "aws_instance" "controller-0" {
     count = 1
 
-    ami = "ami-0eaec5838478eb0ba"
+    ami = "ami-0bdf93799014acdc4"
     subnet_id = "${aws_subnet.kubernetes-main-subnet.id}"
-    instance_type = "t2.micro"
+    instance_type = "t2.medium"
     subnet_id = "${aws_subnet.kubernetes-main-subnet.id}"
     security_groups = [
         "${aws_security_group.Kubernetes-security-group.id}"
@@ -159,9 +159,9 @@ resource "aws_instance" "controller-0" {
 resource "aws_instance" "worker-0" {
     count = 1
 
-    ami = "ami-0eaec5838478eb0ba"
+    ami = "ami-0bdf93799014acdc4"
     subnet_id = "${aws_subnet.subnet.id}"
-    instance_type = "t2.micro"
+    instance_type = "t2.medium"
     key_name = "${var.key_name}"
     subnet_id = "${aws_subnet.kubernetes-main-subnet.id}"
     security_groups = [
@@ -174,3 +174,51 @@ resource "aws_instance" "worker-0" {
         Type = "k8s-node"
     }
 }
+
+data "template_file" "init" {
+  template = "${file("../scripts/init-master-new.sh")}"
+  vars = {
+    master_ip = "${aws_instance.controller-0.private_ip}"
+    kubeadm_token = "${var.kubeadm_token}"
+  }
+  depends_on = ["aws_instance.controller-0"]
+}
+
+resource "null_resource" "controller-0" {
+  triggers = {
+    cluster_instance_ids = "${aws_instance.controller-0.id}"
+  }
+
+  connection {
+    host = "${aws_instance.controller-0.public_ip}"
+    type     = "ssh"
+    user     = "ubuntu"
+    private_key = "${file("~/SSH/andrew_2.pem")}"
+  }
+  provisioner "file" {
+    source      = "../scripts/init-master-new.sh"
+    destination = "~/init-master-new.sh"
+    }
+  provisioner "remote-exec" {
+    # Bootstrap script called with private_ip of each node in the clutser
+    inline = [
+      "sudo sh ~/init-master-new.sh"
+    ]
+  # depends_on = ["template_file.init"]  
+  }
+}
+# data "external" "Token_CA_cert_hash "{
+
+# }
+
+
+
+# data "template_file" "init" {
+#   template = "${file("../scripts/init-node-new.sh")}"
+#   vars = {
+#     master_private_ip = "${aws_instance.controller-0.private_ip}"
+#     kubeadm_token = "${var.kubeadm_token}"
+#   }
+# }
+
+
