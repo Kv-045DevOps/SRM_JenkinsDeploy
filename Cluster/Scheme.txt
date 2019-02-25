@@ -1,0 +1,13 @@
+Here I will describe the minimal set of cluster components:
+
+1. Master node consist of:
+API - just REST api which in charge of communiation with your cluster for further configuring from outside network.
+Kubectl command communicate with master API part.
+Kube-controller-manager - service which regulate the system state. It watching the state of cluster through the API and makes changes towards the desired state.
+kube-scheduler
+etcd - databse
+
+2. Nodes:
+
+kubelet - tool which allow communicate with the Kubernet master
+kube-proxy - network proxy which reflects Kubernetes networking services on each node.
